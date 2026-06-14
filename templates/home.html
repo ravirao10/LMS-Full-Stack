@@ -1,0 +1,32 @@
+<!doctype HTML>
+<head>
+    <title>Home page</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+</head>
+<body>
+    <h1>Home page</h1>
+    {%for category,msg in get_flashed_messages(with_categories=true)%}
+        <p class="flash flash-{{category}}">{{msg}}</p>
+    {%endfor%}
+
+    {% if session.get("user_id")   %}
+    <a href="{{url_for("account")}}">Account</a>
+    {% if session.get('role')=='teacher'%}
+    <a href="{{url_for("teacher")}}">Teacher</a>
+    {%endif%}
+
+    {% endif%}
+
+
+    {% if not session.get("user_id") %}
+
+    <p>Click here to <a href="{{url_for('register')}}">Sign Up</a></p>
+    <p>Click here to <a href="{{url_for('login')}}">Sign in</a></p>
+
+    {%endif%}
+    <br>
+
+    <a href="{{url_for("logout")}}">Logout</a>
+    <br>
+
+</body>
